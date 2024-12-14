@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,8 @@ Route::middleware('guest:web')->group(function () {
     Route::post('/register', [RegisterController::class, 'store'])
         ->name('register.store')
         ->middleware('throttle:60,1');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('records', RecordController::class);
 });
