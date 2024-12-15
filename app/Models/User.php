@@ -4,7 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -18,7 +19,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
  */
-class User extends Authenticatable
+class User extends Auth\User
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -55,5 +56,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Query the records.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Record, $this>
+     */
+    public function records(): HasMany
+    {
+        return $this->hasMany(Record::class);
     }
 }

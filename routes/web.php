@@ -1,18 +1,15 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ShowDashboardController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 Route::middleware('guest:web')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])
-        ->name('login.create');
+        ->name('login');
     Route::post('/login', [LoginController::class, 'store'])
         ->name('login.store')
         ->middleware('throttle:60,1');
@@ -25,5 +22,9 @@ Route::middleware('guest:web')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', LogoutController::class)->name('logout');
+
+    Route::get('/', ShowDashboardController::class)->name('dashboard');
+
     Route::resource('records', RecordController::class);
 });

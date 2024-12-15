@@ -58,7 +58,7 @@
                     <button type="submit" class="btn btn-primary">Login</button>
 
                     <p class="text-gray-500 dark:text-gray-400 text-center">
-                        <a href="{{ route('login.create') }}" class="link">
+                        <a href="{{ route('login') }}" class="link">
                             Already have an account? Login
                         </a>
                     </p>
