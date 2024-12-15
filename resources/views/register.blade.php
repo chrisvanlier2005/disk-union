@@ -20,6 +20,7 @@
                         <span class="text-error">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="form-control">
                         <x-text-input
                             label="Name"
@@ -31,6 +32,7 @@
                         <span class="text-error">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="form-control">
                         <x-text-input
                             label="Password"
@@ -43,6 +45,7 @@
                         <span class="text-error">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="form-control">
                         <x-text-input
                             label="Confirm Password"
@@ -50,11 +53,8 @@
                             type="password"
                             required
                         />
-
-                        @error('password_confirmation')
-                        <span class="text-error">{{ $message }}</span>
-                        @enderror
                     </div>
+
                     <button type="submit" class="btn btn-primary">Login</button>
 
                     <p class="text-gray-500 dark:text-gray-400 text-center">
