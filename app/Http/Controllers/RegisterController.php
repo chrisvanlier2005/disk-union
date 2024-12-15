@@ -17,11 +17,11 @@ final class RegisterController extends Controller
 
     public function store(RegisterRequest $request): RedirectResponse
     {
-        $user = User::query()->create([
-            'name' => $request->validated('name'),
-            'email' => $request->validated('email'),
-            'password' => $request->validated('password'),
-        ]);
+        $user = new User();
+        $user->name = $request->validated('name');
+        $user->email = $request->validated('email');
+        $user->password = $request->validated('password');
+        $user->save();
 
         Auth::login($user);
 
