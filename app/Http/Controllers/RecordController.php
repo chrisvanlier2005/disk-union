@@ -130,7 +130,7 @@ final class RecordController extends Controller
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Record $record)
+    public function destroy(Record $record): RedirectResponse
     {
         $this->authorize('delete', $record);
 
