@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\RecordImageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShowDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/', ShowDashboardController::class)->name('dashboard');
 
     Route::resource('records', RecordController::class);
+    Route::resource('records.record-images', RecordImageController::class)->shallow()->only(['destroy']);
 });

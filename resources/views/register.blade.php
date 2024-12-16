@@ -1,5 +1,5 @@
-<x-layouts.main class="">
-    <main class="flex items-center justify-center min-h-screen">
+<x-layouts.main>
+    <main class="flex items-center justify-center min-h-screen p-2">
         <div class="card shadow-2xl bg-base-200 max-w-3xl w-full mx-auto border border-base-300">
             <form action="{{ route('register.store') }}" method="post">
                 @csrf

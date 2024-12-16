@@ -4,21 +4,28 @@
 <label for="{{ $name }}" class="label">
     <span class="label-text">
         {{ $label }}
+
+        @if ($attributes->has('required'))
+            <span class="text-error">*</span>
+        @endif
     </span>
 </label>
 
 @endisset
-<input
-    type="{{ $type }}"
-    name="{{ $name }}"
-    id="{{ $name }}"
-    {{ $attributes->class([
-        'input input-bordered',
-    ]) }}
->
 
-@if($withError)
-    @error($name)
-    <span class="text-error">{{ $message }}</span>
-    @enderror
-@endif
+<div class="w-full">
+    <input
+        type="{{ $type }}"
+        name="{{ $name }}"
+        id="{{ $name }}"
+        {{ $attributes->class([
+            'input input-bordered w-full',
+        ]) }}
+    >
+
+    @if($withError)
+        @error($name)
+        <span class="text-error">{{ $message }}</span>
+        @enderror
+    @endif
+</div>

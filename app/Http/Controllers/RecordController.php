@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Images\UploadRecordImage;
 use App\Models\Record;
 use App\Http\Requests\StoreRecordRequest;
 use App\Http\Requests\UpdateRecordRequest;
@@ -9,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 final class RecordController extends Controller
 {
@@ -19,6 +21,7 @@ final class RecordController extends Controller
         $user = $request->user();
 
         $records = $user->records()
+            ->with('recordImages')
             ->latest()
             ->paginate();
 
@@ -34,12 +37,45 @@ final class RecordController extends Controller
         return view('records.create');
     }
 
-    public function store(StoreRecordRequest $request): RedirectResponse
+    public function store(StoreRecordRequest $request, UploadRecordImage $uploadRecordImage): RedirectResponse
     {
+        /** @var \Illuminate\Http\UploadedFile[] $files */
+        $recordImages = $request->file('images', []);
+
         $record = new Record();
         $record->user()->associate($request->user());
         $record->name = $request->validated('name');
-        $record->save();
+        $record->artist = $request->validated('artist');
+        $record->label = $request->validated('label');
+        $record->code = $request->validated('code');
+        $record->genre = $request->validated('genre');
+        $record->country = $request->validated('country');
+        $record->release_date = $request->date('release_date');
+        $record->format = $request->validated('format');
+        $record->rpm = $request->validated('rpm');
+        $record->color = $request->validated('color');
+        $record->is_limited_edition = $request->boolean('is_limited_edition');
+        $record->edition_number = $request->validated('edition_number');
+        $record->condition = $request->validated('condition');
+        $record->barcode = $request->validated('barcode');
+        $record->total_tracks = $request->validated('total_tracks');
+        $record->spine_title = $request->validated('spine_title');
+        $record->notes = $request->validated('notes');
+
+        DB::transaction(function () use ($uploadRecordImage, $recordImages, $record) {
+            $record->save();
+
+            foreach ($recordImages as $image) {
+                $path = $uploadRecordImage($image);
+
+                $record->recordImages()->create([
+                    'original_name' => $image->getClientOriginalName(),
+                    'path' => $path,
+                    'mime_type' => $image->getMimeType(),
+                    'size' => $image->getSize(),
+                ]);
+            }
+        });
 
         return redirect()->route('records.show', $record);
     }
@@ -65,9 +101,27 @@ final class RecordController extends Controller
         ]);
     }
 
-    public function update(UpdateRecordRequest $request, Record $record): RedirectResponse
-    {
+    public function update(
+        UpdateRecordRequest $request,
+        Record $record,
+    ): RedirectResponse {
         $record->name = $request->validated('name');
+        $record->artist = $request->validated('artist');
+        $record->label = $request->validated('label');
+        $record->code = $request->validated('code');
+        $record->genre = $request->validated('genre');
+        $record->country = $request->validated('country');
+        $record->release_date = $request->date('release_date');
+        $record->format = $request->validated('format');
+        $record->rpm = $request->validated('rpm');
+        $record->color = $request->validated('color');
+        $record->is_limited_edition = $request->boolean('is_limited_edition');
+        $record->edition_number = $request->validated('edition_number');
+        $record->condition = $request->validated('condition');
+        $record->barcode = $request->validated('barcode');
+        $record->total_tracks = $request->validated('total_tracks');
+        $record->spine_title = $request->validated('spine_title');
+        $record->notes = $request->validated('notes');
         $record->save();
 
         return redirect()->route('records.show', $record);
