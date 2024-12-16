@@ -3,13 +3,24 @@
         public function __construct(
             public string $label,
             public string $href,
+            public bool $active,
         ) {
         }
     }
 
+    $request = request();
+
     $items = [
-        new NavItem('Dashboard', route('dashboard')),
-        new NavItem('Records', route('records.index')),
+        new NavItem(
+            'Dashboard',
+            route('dashboard'),
+            $request->routeIs('dashboard')
+        ),
+        new NavItem(
+            'Records',
+            route('records.index'),
+            $request->routeIs('records.*')
+        ),
     ];
 ?>
 <nav class="navbar bg-base-100">
@@ -60,7 +71,10 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
             @foreach ($items as $item)
-                <li>
+                <li @class([
+                    'rounded-lg',
+                    'bg-primary/20' => $item->active,
+                ])>
                     <a href="{{ $item->href }}">{{ $item->label }}</a>
                 </li>
             @endforeach

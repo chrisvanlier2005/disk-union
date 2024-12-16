@@ -42,7 +42,7 @@
                     <div class="form-control">
                         <label class="label cursor-pointer">
                             <span class="label-text">Remember me</span>
-                            <input type="checkbox" checked="checked" class="checkbox" />
+                            <input type="checkbox" name="remember" value="1" class="checkbox" />
                         </label>
                     </div>
 

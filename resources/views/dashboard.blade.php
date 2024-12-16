@@ -18,7 +18,7 @@
         <article class="card bg-base-100 w-full shadow-xl border border-base-300">
             <div class="card-body">
                 <p>Your complete collection</p>
-                <h2 class="text-4xl font-bold">
+                <h2 class="text-4xl font-bold text-primary">
                     {{ $totalRecordsCount }}
                 </h2>
             </div>
@@ -27,7 +27,7 @@
         <article class="card bg-base-100 w-full shadow-xl border border-base-300">
             <div class="card-body">
                 <p>Recently added</p>
-                <h2 class="text-4xl font-bold">
+                <h2 class="text-4xl font-bold text-primary">
                     {{ $recentlyAddedRecordsCount }}
                 </h2>
             </div>
