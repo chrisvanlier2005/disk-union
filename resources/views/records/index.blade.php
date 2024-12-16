@@ -19,6 +19,7 @@
                         src="{{ $record->thumbnail() }}"
                         alt="{{ $record->name }}"
                         class="rounded-xl w-full aspect-square object-cover"
+                        loading="lazy"
                     />
 
                     <div class="flex justify-between">
