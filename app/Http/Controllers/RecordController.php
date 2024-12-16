@@ -39,6 +39,7 @@ final class RecordController extends Controller
         $record = new Record();
         $record->user()->associate($request->user());
         $record->name = $request->validated('name');
+        $record->save();
 
         return redirect()->route('records.show', $record);
     }
