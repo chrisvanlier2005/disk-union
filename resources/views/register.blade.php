@@ -15,10 +15,6 @@
                             type="email"
                             required
                         />
-
-                        @error('email')
-                        <span class="text-error">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="form-control">
@@ -27,10 +23,6 @@
                             name="name"
                             required
                         />
-
-                        @error('name')
-                        <span class="text-error">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="form-control">
@@ -40,10 +32,6 @@
                             type="password"
                             required
                         />
-
-                        @error('password')
-                        <span class="text-error">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <div class="form-control">

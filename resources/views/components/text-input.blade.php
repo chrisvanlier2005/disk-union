@@ -1,4 +1,4 @@
-@props(['label' => null, 'name', 'type' => 'text'])
+@props(['label' => null, 'name', 'type' => 'text', 'withError' => true])
 @isset($label)
 
 <label for="{{ $name }}" class="label">
@@ -12,5 +12,13 @@
     type="{{ $type }}"
     name="{{ $name }}"
     id="{{ $name }}"
-    {{ $attributes->class(['input input-bordered']) }}
+    {{ $attributes->class([
+        'input input-bordered',
+    ]) }}
 >
+
+@if($withError)
+    @error($name)
+    <span class="text-error">{{ $message }}</span>
+    @enderror
+@endif
