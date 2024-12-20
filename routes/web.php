@@ -28,5 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', ShowDashboardController::class)->name('dashboard');
 
     Route::resource('records', RecordController::class);
-    Route::resource('records.record-images', RecordImageController::class)->shallow()->only(['destroy']);
+    Route::resource('records.record-images', RecordImageController::class)->shallow()->only([
+        'create', 'store', 'destroy'
+    ]);
 });
