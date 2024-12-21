@@ -11,7 +11,6 @@ use App\Models\Taps\ApplyRecordFilters;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 final class RecordController extends Controller
@@ -20,16 +19,18 @@ final class RecordController extends Controller
 
     public function index(IndexRecordRequest $request): View
     {
+        /** @var \App\Models\User $user */
         $user = $request->user();
 
+        /** @var \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Record> $records */
         $records = $user->records()
             ->with('recordImages')
             ->tap(new ApplyRecordFilters($request->filters()))
             ->latest()
-            ->paginate();
+            ->paginate(9);
 
         return view('records.index', [
-            'records' => $records,
+            'records' => $records->withQueryString(),
         ]);
     }
 
