@@ -34,6 +34,17 @@
                     class="w-full aspect-square object-cover"
                     loading="lazy"
                 />
+
+                @if ($record->barcode !== null)
+                    <div>
+                        <img
+                            src="https://barcode.orcascan.com/?type=qr&data={{ $record->barcode }}"
+                            alt="Barcode"
+                            class="w-24 h-24 absolute bottom-2 left-2 rounded-xl"
+                            loading="lazy"
+                        />
+                    </div>
+                @endif
             </figure>
         </article>
 
@@ -78,16 +89,6 @@
         <article class="card border md:col-span-3 border-base-300">
             <div class="card-body">
                 <h2 class="text-2xl font-bold">Additional information</h2>
-                @if ($record->barcode !== null)
-                    <div>
-                        <img
-                            src="https://barcode.orcascan.com/?type=qr&data={{ $record->barcode }}"
-                            alt="Barcode"
-                            class="w-24 h-24"
-                            loading="lazy"
-                        />
-                    </div>
-                @endif
             </div>
 
         </article>
