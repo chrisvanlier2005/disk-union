@@ -39,8 +39,6 @@
 
         <article class="card border-base-300 border bg-base-100 md:col-span-2">
             <div class="card-body">
-                <h1 class="text-4xl font-bold">{{ $record->name }}</h1>
-
                 <div class="overflow-x-auto">
                     <table class="table">
                         <tbody>
