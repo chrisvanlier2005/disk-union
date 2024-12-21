@@ -19,6 +19,8 @@
                     class="grow"
                     name="search"
                     placeholder="Search ..."
+                    value="{{ request()->query('search') }}"
+                    maxlength="255"
                 />
 
                 <svg

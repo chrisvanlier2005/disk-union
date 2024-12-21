@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Images\UploadRecordImage;
+use App\Http\Requests\IndexRecordRequest;
 use App\Models\Record;
 use App\Http\Requests\StoreRecordRequest;
 use App\Http\Requests\UpdateRecordRequest;
+use App\Models\Taps\ApplyRecordFilters;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
@@ -16,12 +18,13 @@ final class RecordController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index(Request $request): View
+    public function index(IndexRecordRequest $request): View
     {
         $user = $request->user();
 
         $records = $user->records()
             ->with('recordImages')
+            ->tap(new ApplyRecordFilters($request->filters()))
             ->latest()
             ->paginate();
 
@@ -101,10 +104,7 @@ final class RecordController extends Controller
         ]);
     }
 
-    public function update(
-        UpdateRecordRequest $request,
-        Record $record,
-    ): RedirectResponse {
+    public function update(UpdateRecordRequest $request, Record $record): RedirectResponse {
         $record->name = $request->validated('name');
         $record->artist = $request->validated('artist');
         $record->label = $request->validated('label');
