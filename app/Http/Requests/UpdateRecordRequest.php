@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Value\RecordFormat;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -35,8 +36,8 @@ final class UpdateRecordRequest extends FormRequest
             'genre' => ['string', 'max:255', 'nullable'],
             'country' => ['string', 'max:255', 'nullable'],
             'release_date' => ['date', 'nullable'],
-            'format' => [Rule::in(['LP']), 'required'], // TODO: enum
-            'rpm' => ['integer', 'nullable'], // TODO: max integer size.
+            'format' => [Rule::enum(RecordFormat::class), 'required'],
+            'rpm' => ['integer', 'nullable', 'max:2147483647'],
             'color' => ['string', 'max:255', 'nullable'],
             'is_limited_edition' => ['boolean'],
             'edition_number' => ['integer', 'nullable'],

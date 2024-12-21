@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Value\RecordFormat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -46,7 +47,8 @@ final class Record extends Model
     public function casts(): array
     {
         return [
-            'release_date' => 'datetime'
+            'release_date' => 'datetime',
+            'format' => RecordFormat::class,
         ];
     }
 

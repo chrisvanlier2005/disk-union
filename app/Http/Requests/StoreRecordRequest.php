@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Record;
 use App\Support\FileContraints;
+use App\Value\RecordFormat;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
@@ -26,7 +27,7 @@ final class StoreRecordRequest extends FormRequest
             'country' => ['string', 'max:255', 'nullable'],
             'release_date' => ['date', 'nullable'],
             'format' => [
-                Rule::in(['LP']),
+                Rule::enum(RecordFormat::class),
                 'required',
             ], // TODO: enum
             'rpm' => ['integer', 'nullable'], // TODO: max integer size.

@@ -82,11 +82,26 @@
             <div class="card-body">
                 <h2 class="card-title">Physical Details</h2>
                 <div class="grid md:grid-cols-2 gap-2">
-                    <x-text-input
-                        label="Format"
-                        name="format"
-                        :value="old('format', $record?->format ?? 'LP')"
-                    />
+                    <label for="format" class="label">
+                        <span class="label-text">
+                            Format
+                        </span>
+                    </label>
+
+                    <div>
+                        <select class="select select-bordered w-full" name="format" id="format">
+                            @foreach (\App\Value\RecordFormat::cases() as $format)
+                                <option value="{{ $format }}" {{ old('format', $record?->format) === $format ? 'selected' : '' }}>
+                                    {{ $format->displayName() }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('format')
+                        <span class="text-error">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <x-text-input
                         label="RPM"
                         name="rpm"
