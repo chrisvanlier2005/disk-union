@@ -21,6 +21,11 @@
             route('records.index'),
             $request->routeIs('records.*')
         ),
+        new NavItem(
+            'Categories',
+            route('record-categories.index'),
+            $request->routeIs('record-categories.*')
+        ),
     ];
 ?>
 <nav class="navbar bg-base-100">
@@ -85,8 +90,9 @@
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
                     <img
-                        alt="Tailwind CSS Navbar component"
-                        src="https://api.dicebear.com/9.x/thumbs/svg?seed={{auth()->user()->name}}"
+                        alt="avatar"
+                        src="https://api.dicebear.com/9.x/thumbs/svg?seed={{urlencode(auth()->user()->name)}}"
+                        loading="lazy"
                     />
                 </div>
             </div>

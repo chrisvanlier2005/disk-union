@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\RecordCategoryController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RecordImageController;
 use App\Http\Controllers\RegisterController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', ShowDashboardController::class)->name('dashboard');
 
     Route::resource('records', RecordController::class);
+    Route::resource('record-categories', RecordCategoryController::class);
     Route::resource('records.record-images', RecordImageController::class)->shallow()->only([
         'create', 'store', 'destroy'
     ]);

@@ -18,6 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory> $recordCategories
  */
 class User extends Auth\User
 {
@@ -66,5 +67,15 @@ class User extends Auth\User
     public function records(): HasMany
     {
         return $this->hasMany(Record::class);
+    }
+
+    /**
+     * Query the record categories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Record, $this>
+     */
+    public function recordCategories(): HasMany
+    {
+        return $this->hasMany(RecordCategory::class);
     }
 }
