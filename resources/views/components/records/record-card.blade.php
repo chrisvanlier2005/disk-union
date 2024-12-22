@@ -13,7 +13,7 @@
             alt="{{ $record->name }}"
             class="w-full aspect-square object-cover"
             loading="lazy"
-        />
+        >
     </figure>
 
     <div class="card-body">

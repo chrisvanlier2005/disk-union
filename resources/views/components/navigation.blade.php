@@ -93,7 +93,7 @@
                         alt="avatar"
                         src="https://api.dicebear.com/9.x/thumbs/svg?seed={{urlencode(auth()->user()->name)}}"
                         loading="lazy"
-                    />
+                    >
                 </div>
             </div>
             <ul

@@ -33,7 +33,7 @@
                     alt="{{ $record->name }}"
                     class="w-full aspect-square object-cover"
                     loading="lazy"
-                />
+                >
 
                 @if ($record->barcode !== null)
                     <div>
@@ -42,7 +42,7 @@
                             alt="Barcode"
                             class="w-24 h-24 absolute bottom-2 left-2 rounded-xl"
                             loading="lazy"
-                        />
+                        >
                     </div>
                 @endif
             </figure>
