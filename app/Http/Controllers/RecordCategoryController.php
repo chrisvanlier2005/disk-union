@@ -21,6 +21,7 @@ final class RecordCategoryController extends Controller
 
         $categories = $user
             ->recordCategories()
+            ->withCount('records')
             ->paginate();
 
         return view('record-categories.index', [

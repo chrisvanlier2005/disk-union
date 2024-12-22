@@ -6,6 +6,7 @@ use App\Value\RecordFormat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Storage;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory> $recordCategories
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordImage> $recordImages
  */
 final class Record extends Model
@@ -70,6 +72,16 @@ final class Record extends Model
     public function recordImages(): HasMany
     {
         return $this->hasMany(RecordImage::class);
+    }
+
+    /**
+     * Query the record categories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\RecordCategory, $this>
+     */
+    public function recordCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(RecordCategory::class);
     }
 
     /**

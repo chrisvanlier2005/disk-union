@@ -3,9 +3,13 @@
 namespace App\Http\Requests;
 
 use App\Value\RecordFormat;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * @method \App\Models\User user($guard = null)
+ */
 final class UpdateRecordRequest extends FormRequest
 {
     /**
@@ -46,6 +50,24 @@ final class UpdateRecordRequest extends FormRequest
             'total_tracks' => ['integer', 'nullable'],
             'spine_title' => ['string', 'max:255', 'nullable'],
             'notes' => ['string', 'nullable'],
+            'categories' => ['array', 'max:50'],
+            'categories.*' => ['integer', 'exists:record_categories,id'],
         ];
+    }
+
+    /**
+     * Get the selected record categories from the request.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory>|null
+     */
+    public function categories(): ?Collection
+    {
+        if ($this->isNotFilled('categories')) {
+            return null;
+        }
+
+        return $this->user()->recordCategories()
+            ->whereIn('id', $this->validated('categories'))
+            ->get();
     }
 }

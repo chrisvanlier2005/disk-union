@@ -5,10 +5,14 @@ namespace App\Http\Requests;
 use App\Models\Record;
 use App\Support\FileContraints;
 use App\Value\RecordFormat;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
+/**
+ * @method \App\Models\User user($guard = null) TODO: change stubs.
+ */
 final class StoreRecordRequest extends FormRequest
 {
     public function authorize(): bool
@@ -43,6 +47,25 @@ final class StoreRecordRequest extends FormRequest
             'images.*' => [
                 File::image()->max(FileContraints::maxImageSize())
             ],
+            'categories' => ['array', 'max:50'],
+            'categories.*' => ['integer', 'exists:record_categories,id'],
         ];
+    }
+
+
+    /**
+     * Get the selected record categories from the request.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory>|null
+     */
+    public function categories(): ?Collection
+    {
+        if ($this->isNotFilled('categories')) {
+            return null;
+        }
+
+        return $this->user()->recordCategories()
+            ->whereIn('id', $this->validated('categories'))
+            ->get();
     }
 }

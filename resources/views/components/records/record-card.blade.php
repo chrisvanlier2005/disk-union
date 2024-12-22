@@ -18,5 +18,11 @@
 
     <div class="card-body">
         <h2 class="card-title">{{ $record->name }}</h2>
+
+        <div class="flex gap-3 overflow-hidden h-6">
+            @foreach ($record->recordCategories as $category)
+                <span class="badge badge-primary">{{ $category->name }}</span>
+            @endforeach
+        </div>
     </div>
 </div>

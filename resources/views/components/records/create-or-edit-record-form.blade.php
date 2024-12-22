@@ -1,5 +1,6 @@
 @props([
-   'record'  => null,
+   'record' => null,
+   'recordCategories' => [],
 ])
 
 <?php
@@ -7,6 +8,7 @@
  * @var \App\Models\Record|null $record
  */
 ?>
+
 
 <form
     @if($record !== null)
@@ -218,9 +220,56 @@
                 </div>
             </div>
         @endif
-    </div>
 
-    <div class="mt-4">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="card bg-base-100 shadow-xl border border-base-300">
+            <div class="card-body">
+                <h2 class="card-title">Categories</h2>
+                <div class="grid md:grid-cols-2 gap-2">
+                    <label for="categories" class="label">
+                        <span class="label-text">
+                            Categories
+                        </span>
+                    </label>
+
+                    <div>
+                        <select
+                            class="form-control"
+                            name="categories[]"
+                            id="categories"
+                            multiple
+                        >
+                            @foreach ($recordCategories as $category)
+                                <option value="{{ $category->id }}"
+                                    @selected(
+                                        $record?->recordCategories->contains('id', '=', $category->id)
+                                    )
+                                >
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('categories')
+                        <span class="text-error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+        <!-- Include Choices JavaScript (latest) -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+        <script>
+            const choices = new Choices('#categories', {
+                searchEnabled: false,
+                itemSelectText: '',
+                removeItemButton: true,
+            });
+        </script>
     </div>
 </form>

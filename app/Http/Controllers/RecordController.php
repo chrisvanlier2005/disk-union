@@ -8,9 +8,11 @@ use App\Models\Record;
 use App\Http\Requests\StoreRecordRequest;
 use App\Http\Requests\UpdateRecordRequest;
 use App\Models\Taps\ApplyRecordFilters;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 final class RecordController extends Controller
@@ -24,7 +26,12 @@ final class RecordController extends Controller
 
         /** @var \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Record> $records */
         $records = $user->records()
-            ->with('recordImages')
+            ->with([
+                'recordImages',
+                'recordCategories' => function (Builder $query) {
+                    $query->latest()->limit(6);
+                },
+            ])
             ->tap(new ApplyRecordFilters($request->filters()))
             ->latest()
             ->paginate(9);
@@ -34,11 +41,15 @@ final class RecordController extends Controller
         ]);
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         $this->authorize('create', Record::class);
 
-        return view('records.create');
+        $recordCategories = $request->user()->recordCategories;
+
+        return view('records.create', [
+            'recordCategories' => $recordCategories,
+        ]);
     }
 
     public function store(StoreRecordRequest $request, UploadRecordImage $uploadRecordImage): RedirectResponse
@@ -66,8 +77,9 @@ final class RecordController extends Controller
         $record->spine_title = $request->validated('spine_title');
         $record->notes = $request->validated('notes');
 
-        DB::transaction(function () use ($uploadRecordImage, $recordImages, $record) {
+        DB::transaction(function () use ($request, $uploadRecordImage, $recordImages, $record) {
             $record->save();
+            $record->recordCategories()->attach($request->categories());
 
             foreach ($recordImages as $image) {
                 $path = $uploadRecordImage($image);
@@ -96,12 +108,15 @@ final class RecordController extends Controller
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Record $record): View
+    public function edit(Request $request, Record $record): View
     {
         $this->authorize('update', $record);
 
+        $recordCategories = $request->user()->recordCategories;
+
         return view('records.edit', [
             'record' => $record,
+            'recordCategories' => $recordCategories,
         ]);
     }
 
@@ -123,7 +138,12 @@ final class RecordController extends Controller
         $record->total_tracks = $request->validated('total_tracks');
         $record->spine_title = $request->validated('spine_title');
         $record->notes = $request->validated('notes');
-        $record->save();
+
+        DB::transaction(function () use ($request, $record) {
+            $record->save();
+
+            $record->recordCategories()->sync($request->categories());
+        });
 
         return redirect()->route('records.show', $record);
     }
