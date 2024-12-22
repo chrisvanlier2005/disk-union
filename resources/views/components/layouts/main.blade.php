@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="retro">
 <head>
     <meta charset="UTF-8">
     <meta
@@ -8,8 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Disk union') }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <script>
@@ -30,5 +29,6 @@
 </head>
 <body>
 {{ $slot }}
+<script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
