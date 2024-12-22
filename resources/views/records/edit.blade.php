@@ -30,7 +30,7 @@
                         <img src="{{ $image->url() }}" alt="{{ $record->name }}" class="size-64 object-cover rounded-xl">
 
                         <form action="{{ route('record-images.destroy', $image) }}" method="POST">
-                            @csrf
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             @method('DELETE')
                             <button type="submit" class="btn btn-circle mt-2 absolute top-2 right-2">
                                 <svg

@@ -20,7 +20,7 @@
     class="space-y-4"
     enctype="multipart/form-data"
 >
-    @csrf
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     @if($record !== null)
         @method("PUT")

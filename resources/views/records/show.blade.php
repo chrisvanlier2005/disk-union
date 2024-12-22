@@ -13,7 +13,7 @@
                 <div class="flex gap-3">
                     <a href="{{ route('records.edit', $record) }}" class="btn btn-primary">Edit Record</a>
                     <form action="{{ route('records.destroy', $record) }}" method="post">
-                        @csrf
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         @method('delete')
 
                         <button class="btn btn-error btn-outline">

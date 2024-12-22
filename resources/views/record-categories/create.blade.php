@@ -9,7 +9,7 @@
     </header>
 
     <form action="{{ route('record-categories.store') }}" method="post">
-        @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
         <div class="form-control">
             <label for="name" class="label">

@@ -2,7 +2,7 @@
     <main class="flex items-center justify-center min-h-screen p-2">
         <div class="card shadow-2xl bg-base-200 max-w-3xl w-full mx-auto border border-base-300">
             <form action="{{ route('login.store') }}" method="post">
-                @csrf
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="card-body space-y-4">
                     <h1 class="text-3xl font-semibold text-center">
                         Sign in to your account

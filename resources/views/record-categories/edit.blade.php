@@ -13,7 +13,7 @@
         <div>
             @can('delete', $recordCategory)
                 <form action="{{ route('record-categories.destroy', $recordCategory) }}" method="POST">
-                    @csrf
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     @method('DELETE')
                     <button type="submit" class="btn btn-error">
                         Delete
@@ -30,7 +30,7 @@
             </h2>
 
             <form action="{{ route('record-categories.update', $recordCategory) }}" method="post">
-                @csrf
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 @method('PUT')
 
                 <div class="form-control">
