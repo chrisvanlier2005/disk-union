@@ -101,7 +101,12 @@
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li>
                     <form action="{{ route('logout') }}" method="post">
-                        @csrf
+                        {{--
+                            We don't use the @csrf directive because the resulting element has autocomplete=off
+                            which results in a w3 validation error. And the assignment specifically asks to pass w3 validation constraints.
+                        --}}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
                         <button type="submit">Logout</button>
                     </form>
                 </li>
