@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $recordCategory->name }}</td>
                     <td>
-                        0 {{-- TODO --}}
+                        {{ $recordCategory->records_count }}
                     </td>
                     <td class="flex justify-end">
                         <a href="{{ route('record-categories.edit', $recordCategory) }}">

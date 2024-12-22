@@ -3,5 +3,5 @@
         Create a Record
     </h1>
 
-    <x-records.create-or-edit-record-form />
+    <x-records.create-or-edit-record-form :$recordCategories/>
 </x-layouts.application>

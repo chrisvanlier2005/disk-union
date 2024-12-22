@@ -55,5 +55,5 @@
         </div>
     </div>
 
-    <x-records.create-or-edit-record-form :$record/>
+    <x-records.create-or-edit-record-form :$record :$recordCategories/>
 </x-layouts.application>
