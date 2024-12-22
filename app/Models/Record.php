@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -91,13 +92,15 @@ final class Record extends Model
      */
     public function thumbnail(): ?string
     {
-        $image = $this->recordImages?->first();
+        return Cache::remember("record-thumbnail-{$this->id}", now()->addMinutes(5), function () {
+            $image = $this->recordImages?->first();
 
-        if ($image === null) {
-            // TODO: Make a custom default image.
-            return 'https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png';
-        }
+            if ($image === null) {
+                // TODO: Make a custom default image.
+                return 'https://community.mp3tag.de/uploads/default/original/2X/a/acf3edeb055e7b77114f9e393d1edeeda37e50c9.png';
+            }
 
-        return Storage::temporaryUrl($image?->path, now()->addMinutes(5));
+            return Storage::temporaryUrl($image?->path, now()->addMinutes(6));
+        });
     }
 }
