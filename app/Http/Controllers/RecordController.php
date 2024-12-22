@@ -142,7 +142,6 @@ final class RecordController extends Controller
         DB::transaction(function () use ($request, $record) {
             $record->save();
 
-
             $record->recordCategories()->sync($request->categories());
         });
 
