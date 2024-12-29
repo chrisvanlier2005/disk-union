@@ -31,4 +31,12 @@ class TrackPolicy
     {
         return $user->can('update', $track->record);
     }
+
+    /**
+     * Determine whether the user can delete the specified track.
+     */
+    public function delete(User $user, Track $track): bool
+    {
+        return $user->can('update', $track->record);
+    }
 }
