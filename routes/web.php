@@ -33,4 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('records.record-images', RecordImageController::class)->shallow()->only([
         'create', 'store', 'destroy'
     ]);
+    Route::resource('records.tracks', \App\Http\Controllers\TrackController::class)->shallow()->except([
+        'index',
+    ]);
 });
