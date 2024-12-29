@@ -26,7 +26,6 @@
         </div>
     </header>
 
-
     <form action="{{ route('tracks.update', $track) }}" method="post" class="space-y-6">
         @METHOD("PUT")
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

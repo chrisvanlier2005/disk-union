@@ -34,6 +34,10 @@ class TrackPolicy
 
     /**
      * Determine whether the user can delete the specified track.
+     *
+     * @param User $user
+     * @param Track $track
+     * @return bool
      */
     public function delete(User $user, Track $track): bool
     {
