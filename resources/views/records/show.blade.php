@@ -100,7 +100,6 @@
 
                 <div class="overflow-x-auto">
                     <table class="table">
-                        <!-- head -->
                         <thead>
                         <tr>
                             <th>Title</th>
@@ -109,7 +108,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- row 1 -->
                         @foreach ($record->tracks as $track)
                         <tr>
                             <td>
@@ -131,12 +129,9 @@
                             </td>
                         </tr>
                         @endforeach
-
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
         </article>
     </section>
