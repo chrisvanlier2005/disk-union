@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Storage;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Track> $tracks
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory> $recordCategories
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordImage> $recordImages
  */
@@ -63,6 +64,16 @@ final class Record extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Query the tracks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Track, $this>
+     */
+    public function tracks(): HasMany
+    {
+        return $this->hasMany(Track::class);
     }
 
     /**

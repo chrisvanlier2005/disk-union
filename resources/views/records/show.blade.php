@@ -36,14 +36,14 @@
                 >
 
                 @if ($record->barcode !== null)
-                    <div>
-                        <img
-                            src="https://barcode.orcascan.com/?type=qr&data={{ $record->barcode }}"
-                            alt="Barcode"
-                            class="w-24 h-24 absolute bottom-2 left-2 rounded-xl"
-                            loading="lazy"
-                        >
-                    </div>
+                <div>
+                    <img
+                        src="https://barcode.orcascan.com/?type=qr&data={{ $record->barcode }}"
+                        alt="Barcode"
+                        class="w-24 h-24 absolute bottom-2 left-2 rounded-xl"
+                        loading="lazy"
+                    >
+                </div>
                 @endif
             </figure>
         </article>
@@ -54,31 +54,31 @@
                     <table class="table">
                         <tbody>
                         @if ($record->artist !== null)
-                            <tr>
-                                <th>Artist</th>
-                                <td>{{ $record->artist }}</td>
-                            </tr>
+                        <tr>
+                            <th>Artist</th>
+                            <td>{{ $record->artist }}</td>
+                        </tr>
                         @endif
 
                         @if ($record->label !== null)
-                            <tr>
-                                <th>Label</th>
-                                <td>{{ $record->label }}</td>
-                            </tr>
+                        <tr>
+                            <th>Label</th>
+                            <td>{{ $record->label }}</td>
+                        </tr>
                         @endif
 
                         @if ($record->release_date !== null)
-                            <tr>
-                                <th>Release Date</th>
-                                <td>{{ $record->release_date->format('F j, Y') }}</td>
-                            </tr>
+                        <tr>
+                            <th>Release Date</th>
+                            <td>{{ $record->release_date->format('F j, Y') }}</td>
+                        </tr>
                         @endif
 
                         @if ($record->genre !== null)
-                            <tr>
-                                <th>Genre</th>
-                                <td>{{ $record->genre }}</td>
-                            </tr>
+                        <tr>
+                            <th>Genre</th>
+                            <td>{{ $record->genre }}</td>
+                        </tr>
                         @endif
                         </tbody>
                     </table>
@@ -88,9 +88,50 @@
 
         <article class="card border md:col-span-3 border-base-300">
             <div class="card-body">
-                <h2 class="text-2xl font-bold">Additional information</h2>
-            </div>
+                <header class="flex justify-between">
+                    <h2 class="text-2xl font-bold">Tracklist</h2>
 
+                    <a href="{{ route('records.tracks.create', $record) }}">
+                        <button class="btn btn-primary">
+                            Add Track
+                        </button>
+                    </a>
+                </header>
+
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Duration</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- row 1 -->
+                        @foreach ($record->tracks as $track)
+                        <tr>
+                            <td>
+                                {{ $track->title }}
+                            </td>
+
+                            <td>
+                                {{ $track->getFormattedDuration() }}
+                            </td>
+                            
+                            <td>
+                            
+                            </td>
+                        </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
         </article>
     </section>
 </x-layouts.application>
