@@ -9,10 +9,10 @@ class UpdateTrackRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        /** @var \App\Models\Record $record */
-        $record = $this->route('record');
+        /** @var \App\Models\Track $track */
+        $track = $this->route('track');
 
-        return $this->user()->can('create', [Track::class, $record]);
+        return $this->user()->can('update', $track);
     }
 
     public function rules(): array

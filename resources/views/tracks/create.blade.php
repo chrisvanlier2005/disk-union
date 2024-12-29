@@ -4,7 +4,7 @@
 
 <x-layouts.application class="max-w-7xl mx-auto">
     <div class="flex gap-6 items-center">
-        <img src="{{ $record->thumbnail() }}" alt="{{ $record->name }}" class="rounded-xl object-cover" width="60px" height="60px">
+        <img src="{{ $record->thumbnail() }}" alt="{{ $record->name }}" class="rounded-xl object-cover" width="60" height="60">
         <h1 class="text-4xl font-bold">Add track to {{ $record->name }}</h1>
     </div>
 

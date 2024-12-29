@@ -15,7 +15,15 @@ final readonly class ApplyRecordFilters
     public function __invoke(Builder $query): void
     {
         if ($this->filters->search !== null) {
-            $query->where('name', 'like', '%' . $this->filters->search . '%');
+            $query
+                ->where(function (Builder $query) {
+                    $query
+                        ->where('name', 'like', '%' . $this->filters->search . '%')
+                        ->orWhereHas('tracks', function (Builder $query) {
+                            $query->where('title', 'LIKE', "%{$this->filters->search}%");
+                        });
+                });
+
         }
     }
 }

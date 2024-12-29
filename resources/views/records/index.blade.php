@@ -18,7 +18,7 @@
                     type="text"
                     class="grow"
                     name="search"
-                    placeholder="Search ..."
+                    placeholder="Search for record, track name..."
                     value="{{ request()->query('search') }}"
                     maxlength="255"
                 >

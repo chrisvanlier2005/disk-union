@@ -40,7 +40,7 @@ final class TrackController extends Controller
 
         return view('tracks.edit', [
             'track' => $track,
-        ]);
+        ]); 
     }
 
     public function update(UpdateTrackRequest $request, Track $track): RedirectResponse
