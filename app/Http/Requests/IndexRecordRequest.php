@@ -15,6 +15,13 @@ class IndexRecordRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'record_categories' => [
+                'array',
+            ],
+            'record_categories.*' => [
+                'int',
+                'max:' . PHP_INT_MAX,
+            ],
         ];
     }
 
@@ -27,6 +34,7 @@ class IndexRecordRequest extends FormRequest
     {
         return new RecordFilters(
             search: $this->validated('search'),
+            recordCategories: $this->validated('record_categories') ?? [],
         );
     }
 }
