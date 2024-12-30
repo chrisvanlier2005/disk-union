@@ -7,6 +7,7 @@ use App\Http\Requests\IndexRecordRequest;
 use App\Models\Record;
 use App\Http\Requests\StoreRecordRequest;
 use App\Http\Requests\UpdateRecordRequest;
+use App\Models\RecordCategory;
 use App\Models\Taps\ApplyRecordFilters;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
@@ -36,8 +37,13 @@ final class RecordController extends Controller
             ->latest()
             ->paginate(9);
 
+        $recordCategories = $user->recordCategories()
+            ->latest()
+            ->get();
+
         return view('records.index', [
             'records' => $records->withQueryString(),
+            'recordCategories' => $recordCategories,
         ]);
     }
 
@@ -120,7 +126,8 @@ final class RecordController extends Controller
         ]);
     }
 
-    public function update(UpdateRecordRequest $request, Record $record): RedirectResponse {
+    public function update(UpdateRecordRequest $request, Record $record): RedirectResponse
+    {
         $record->name = $request->validated('name');
         $record->artist = $request->validated('artist');
         $record->label = $request->validated('label');

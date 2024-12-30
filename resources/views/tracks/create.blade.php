@@ -5,7 +5,7 @@
 <x-layouts.application class="max-w-7xl mx-auto">
     <div class="flex gap-6 items-center">
         <img src="{{ $record->thumbnail() }}" alt="{{ $record->name }}" class="rounded-xl object-cover" width="60" height="60">
-        <h1 class="text-4xl font-bold">Add track to {{ $record->name }}</h1>
+        <h1 class="text-lg md:text-4xl font-bold">Add track to {{ $record->name }}</h1>
     </div>
 
     <form action="{{ route('records.tracks.store', $record) }}" method="post" class="space-y-6">

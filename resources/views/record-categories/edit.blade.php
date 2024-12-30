@@ -5,8 +5,8 @@
 ?>
 
 <x-layouts.application class="max-w-7xl mx-auto">
-    <header class="flex justify-between">
-        <h1 class="text-4xl font-bold mb-4">
+    <header class="flex justify-between items-center mb-3">
+        <h1 class="text-lg md:text-4xl font-bold mb-4">
             {{ $recordCategory->name }}
         </h1>
 

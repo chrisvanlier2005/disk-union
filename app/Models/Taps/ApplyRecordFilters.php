@@ -25,5 +25,11 @@ final readonly class ApplyRecordFilters
                 });
 
         }
+
+        if ($this->filters->recordCategories !== []) {
+            $query->whereHas('recordCategories', function (Builder $query) {
+                $query->whereIn($query->qualifyColumn('id'), $this->filters->recordCategories);
+            });
+        }
     }
 }

@@ -7,9 +7,8 @@
 <x-layouts.application class="max-w-7xl mx-auto space-y-6">
     <section class="card bg-base-100 border border-base-300">
         <div class="card-body">
-            <div class="flex justify-between items-center">
-
-                <h1 class="card-title text-3xl">{{ $record->name }}</h1>
+            <div class="flex justify-between items-center md:flex-row flex-col gap-3">
+                <h1 class="card-title text-lg md:text-3xl">{{ $record->name }}</h1>
                 <div class="flex gap-3">
                     <a href="{{ route('records.edit', $record) }}" class="btn btn-primary">Edit Record</a>
                     <form action="{{ route('records.destroy', $record) }}" method="post">

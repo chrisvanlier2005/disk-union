@@ -1,7 +1,19 @@
 <?php
 /**
  * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
+ * @var \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordCategory> $recordCategories
  */
+
+function requestHasCategory(\App\Models\RecordCategory $category): bool
+{
+    /** @var list<string>|null $categories **/
+    $categories = request()->input('record_categories') ?? [];
+
+    return collect($categories)->contains(function (string $item) use ($category) {
+        return intval($item) === $category->id;
+    });
+}
+
 ?>
 <x-layouts.application class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
@@ -38,18 +50,39 @@
         </form>
     </div>
 
+    @if ($recordCategories->isNotEmpty())
+    <div class="mb-8 flex flex-wrap gap-2">
+        @foreach ($recordCategories as $category)
+        @if (!requestHasCategory($category))
+        <a href="{{ route('records.index', ['record_categories' => [$category->id]]) }}">
+        @else
+        <a href="{{ route('records.index') }}">
+        @endif
+            <span
+            @class([
+                'badge badge-md badge-neutral',
+                'badge-outline' => !requestHasCategory($category)
+            ]),
+            >
+                {{ $category->name }}
+            </span>
+        </a>
+        @endforeach
+    </div>
+    @endif
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse ($records as $record)
-            <a href="{{ route('records.show', $record) }}">
-                <x-records.record-card :$record />
-            </a>
+        <a href="{{ route('records.show', $record) }}">
+            <x-records.record-card :$record/>
+        </a>
         @empty
-            <div class="col-span-full text-center py-12">
-                <div class="flex flex-col items-center text-center">
-                    <h2 class="card-title">No Records Found</h2>
-                    <p class="text-gray-500">Start by adding your first record!</p>
-                </div>
+        <div class="col-span-full text-center py-12">
+            <div class="flex flex-col items-center text-center">
+                <h2 class="card-title">No Records Found</h2>
+                <p class="text-gray-500">Start by adding your first record!</p>
             </div>
+        </div>
         @endforelse
     </div>
 
