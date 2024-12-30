@@ -7,7 +7,6 @@ use App\Http\Requests\IndexRecordRequest;
 use App\Models\Record;
 use App\Http\Requests\StoreRecordRequest;
 use App\Http\Requests\UpdateRecordRequest;
-use App\Models\RecordCategory;
 use App\Models\Taps\ApplyRecordFilters;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
