@@ -62,7 +62,7 @@ function requestHasCategory(\App\Models\RecordCategory $category): bool
             @class([
                 'badge badge-md badge-neutral',
                 'badge-outline' => !requestHasCategory($category)
-            ]),
+            ])
             >
                 {{ $category->name }}
             </span>

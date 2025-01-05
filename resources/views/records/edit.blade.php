@@ -17,10 +17,8 @@
                 <h2 class="card-title">Images</h2>
 
                 @can('create', [\App\Models\RecordImage::class, $record])
-                    <a href="{{ route('records.record-images.create', $record) }}">
-                        <button class="btn btn-primary">
+                    <a href="{{ route('records.record-images.create', $record) }}" class="btn btn-primary">
                             Add Image
-                        </button>
                     </a>
                 @endcan
             </div>

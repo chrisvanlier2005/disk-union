@@ -25,7 +25,7 @@
     </section>
 
     <section class="grid md:grid-cols-3 gap-6">
-        <article class="card border border-base-300 bg-base-100 rounded-xl overflow-hidden col-span-1">
+        <div class="card border border-base-300 bg-base-100 rounded-xl overflow-hidden col-span-1">
             <figure>
                 <img
                     src="{{ $record->thumbnail() }}"
@@ -45,9 +45,9 @@
                 </div>
                 @endif
             </figure>
-        </article>
+        </div>
 
-        <article class="card border-base-300 border bg-base-100 md:col-span-2">
+        <div class="card border-base-300 border bg-base-100 md:col-span-2">
             <div class="card-body">
                 <div class="overflow-x-auto">
                     <table class="table">
@@ -83,17 +83,15 @@
                     </table>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <article class="card border md:col-span-3 border-base-300">
+        <div class="card border md:col-span-3 border-base-300">
             <div class="card-body">
                 <header class="flex justify-between">
                     <h2 class="text-2xl font-bold">Tracklist</h2>
 
-                    <a href="{{ route('records.tracks.create', $record) }}">
-                        <button class="btn btn-primary">
+                    <a href="{{ route('records.tracks.create', $record) }}" class="btn btn-primary">
                             Add Track
-                        </button>
                     </a>
                 </header>
 
@@ -116,14 +114,12 @@
                             <td>
                                 {{ $track->getFormattedDuration() }}
                             </td>
-                            
+
                             <td class="w-24">
-                                <a href="{{ route('tracks.edit', $track) }}">
-                                    <button class="btn btn-sm btn-secondary">
+                                <a href="{{ route('tracks.edit', $track) }}" class="btn btn-sm btn-secondary">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
                                             <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
                                         </svg>
-                                    </button>
                                 </a>
                             </td>
                         </tr>
@@ -132,6 +128,6 @@
                     </table>
                 </div>
             </div>
-        </article>
+        </div>
     </section>
 </x-layouts.application>
