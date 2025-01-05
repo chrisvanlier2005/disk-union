@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Disk union') }}</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css">
+    {{--<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css">--}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Include Choices CSS -->
@@ -16,6 +16,8 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
     >
+
+    <link rel="stylesheet" href="{{ asset('static/app-2.css') }}">
 
     <script>
         /* Set the alpine prefix to pass w3 validation contraints of project*/
@@ -35,6 +37,6 @@
 </head>
 <body>
 {{ $slot }}
-<script src="https://cdn.tailwindcss.com"></script>
+{{--<script src="https://cdn.tailwindcss.com"></script>--}}
 </body>
 </html>
