@@ -10,7 +10,7 @@
 
                     <div class="form-control">
                         <x-text-input
-                            label="Email"
+                            label="Email adress"
                             name="email"
                             type="email"
                             required
